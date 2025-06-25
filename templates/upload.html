@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <title>מערכת נשק טנא</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      font-family: Arial, sans-serif;
+      height: 100%;
+      direction: rtl;
+      overflow: hidden;
+      background: #cce7ff;
+      position: relative;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 200%; height: 200%;
+      background-image: url('https://e7.pngegg.com/pngimages/896/780/png-clipart-computer-icons-weapon-symbol-gun-weapon-weapon-target-icon.png');
+      background-size: 100px;
+      opacity: 0.12;
+      animation: moveBg 15s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes moveBg {
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(-30px, -20px); }
+      50%  { transform: translate(-60px, 30px); }
+      75%  { transform: translate(30px, 60px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .upload-container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px 60px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      width: 400px;
+      max-width: 90%;
+      margin: 50px auto;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: normal;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 16px;
+      text-align: right;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .upload-label {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      background: #107c10;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      position: relative;
+      margin: 0 auto 20px auto;
+    }
+    .upload-label::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/73/Microsoft_Excel_2013-2019_logo.svg') center/contain no-repeat;
+    }
+    .upload-label:active {
+      transform: scale(0.95);
+      background: #0c5c0c;
+    }
+
+    .file-name {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 16px;
+      color: #0c4a07;
+      min-height: 24px;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      border: none;
+      font-size: 18px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.7);
+      color: #002d72;
+      transition: background 0.3s;
+      text-align: right;
+    }
+    input[type="text"]::placeholder {
+      color: #555;
+    }
+    input[type="text"]:focus, select:focus {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, #002d72 50%),
+        linear-gradient(135deg, #002d72 50%, transparent 50%);
+      background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px);
+      background-size: 5px 5px;
+      background-repeat: no-repeat;
+    }
+
+    button {
+      width: calc(50% - 10px);
+      margin: 5px;
+      padding: 14px 0;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      background-color: #4caf50;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      transition: background-color 0.3s, transform 0.2s;
+      display: none;
+    }
+    button.show {
+      display: inline-block;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="animated-bg"></div>
+
+  <div class="upload-container">
+    <h1>טופס 1499 טנ"א</h1>
+    <h2>הכנס קובץ Excel ומידע לסינון</h2>
+
+    <form action="/convert" method="post" enctype="multipart/form-data">
+      <label for="file" class="upload-label"></label>
+      <input id="file" type="file" name="file" accept=".xls,.xlsx" required />
+      <div class="file-name" id="file-name"></div>
+
+      <label for="personal_id">מספר אישי</label>
+      <input type="text" id="personal_id" name="mastab" placeholder="הכנס מספר אישי לסינון" />
+
+      <label for="division">חטיבה</label>
+      <select id="division" name="division">
+        <option value="">בחר חטיבה</option>
+        <option value="שומרון">שומרון</option>
+        <option value="יהודה">יהודה</option>
+        <option value="עציון">עציון</option>
+        <option value="אפרים">אפרים</option>
+        <option value="מנשה">מנשה</option>
+        <option value="בנימין">בנימין</option>
+      </select>
+
+      <label for="unit">מסגרת</label>
+      <input type="text" id="unit" name="unit" placeholder="הכנס מסגרת לסינון" />
+
+      <button id="convert-btn" type="submit" name="action" value="convert">המר ל-Word</button>
+      <button id="filter-btn" type="submit" name="action" value="filter_by_mastab">סנן לפי מספר אישי</button>
+    </form>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('file');
+    const fileNameDisplay = document.getElementById('file-name');
+    const convertBtn = document.getElementById('convert-btn');
+    const filterBtn = document.getElementById('filter-btn');
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = '✓ ' + fileInput.files[0].name + ' נבחר';
+        convertBtn.classList.add('show');
+        filterBtn.classList.add('show');
+      } else {
+        fileNameDisplay.textContent = '';
+        convertBtn.classList.remove('show');
+        filterBtn.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
