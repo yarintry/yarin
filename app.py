@@ -2,6 +2,7 @@ from flask import Flask, request, send_file, render_template, redirect, url_for
 import pandas as pd
 from docx import Document
 import WordPrint as wp
+import os
 
 app = Flask(__name__)
 
@@ -87,6 +88,8 @@ def filter_by_values(df, mastab=None, division=None, unit=None):
         print(f"שגיאה בסינון: {e}")
         return pd.DataFrame()
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)  # Here you specify the port number
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
