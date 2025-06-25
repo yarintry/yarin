@@ -1,7 +1,6 @@
 services:
   - type: web
-    name: flask-excel-app
+    name: flask-to-word
     env: python
-    plan: free
     buildCommand: ""
-    startCommand: "gunicorn app:app"
+    startCommand: gunicorn app:app
